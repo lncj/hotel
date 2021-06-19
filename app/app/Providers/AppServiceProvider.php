@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(
             \App\Repositories\Product\HotelsRepositoryInterface::class,
-            \App\Repositories\Product\HotelsRepository::class
+            \App\Repositories\Product\HotelsRepository::class,
         );
     }
 

@@ -9,8 +9,4 @@ class HotelRepository extends BaseRepository implements  HotelRepositoryInterfac
         return \App\Models\hotel::class;
     }
 
-    public function aa() {
-
-    }
-
 }
