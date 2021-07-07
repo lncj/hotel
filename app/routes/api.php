@@ -18,10 +18,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/users', 'App\Http\Controllers\Api\userApiController@login');
-Route::post('/users/register', 'App\Http\Controllers\Api\userApiController@register');
-Route::get('/users/token', 'App\Http\Controllers\Api\userApiController@index');
-Route::post('/user/create', 'App\Http\Controllers\Api\userApiController@create');
+// Route::post('/login', 'App\Http\Controllers\Api\userApiController@login');
 
-Route::get('/hotel', 'App\Http\Controllers\Api\hotelApiController@index');
+// Route::post('/users/register', 'App\Http\Controllers\Api\userApiController@register');
+// Route::get('/users/token', 'App\Http\Controllers\Api\userApiController@index');
+// Route::post('/user/create', 'App\Http\Controllers\Api\userApiController@create');
 
+// Route::get('/hotel', 'App\Http\Controllers\Api\hotelApiController@index');
+
+Route::group([
+
+    'middleware' => 'api',
+    'namespace' => 'App\Http\Controllers\Api',
+    'prefix' => 'auth'
+
+], function ($router) {
+    Route::post('login', 'userApiController@login');
+    Route::post('logout', 'userApiController@logout');
+    Route::post('refresh', 'userApiController@refresh');
+    Route::post('me', 'userApiController@me');
+});

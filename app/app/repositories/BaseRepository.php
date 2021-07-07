@@ -33,7 +33,7 @@ abstract class BaseRepository implements RepositoryInterface {
     }
 
     public function update($id, $attributes = []) {
-
+        return $this->model->store($attributes);
     }
 
     public function delete($id) {

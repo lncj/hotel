@@ -10,6 +10,7 @@ use App\Models\AuthAccessToken;
 use App\repositories\users\UserRepository;
 use App\repositories\authAccessToken\AuthAccessRepository;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
 
 class userApiController extends AbstractApiController
 {
@@ -52,30 +53,37 @@ class userApiController extends AbstractApiController
         * @redirect
     */
     public function login(Request $request) {
-        $redirect = 'http://127.0.0.1:8000/';
-        $header = $request->header('Authorization');
-        if(!$header){
-            return;
+        $credentials = request(['email', 'password']);
+
+        if (! $token = auth('api')->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $credentials = [
-            'email' => $request->email,
-            'password' => $request->password
-        ];
-        // $request->session()->regenerate();
-        if (Auth::attempt($credentials)) {
-            $user_id = auth()->user()->id;
-            // AuthAccessRepository
-            // $auth_access_token = 
-            return response()->json([
-                'token_id' => '32gdf45hjojeifaawpeofkipaokjagkafpk',
-                'redirect' => $redirect,
-                'expires_at' => '',
-            ]);
-        }
+        return $this->respondWithToken($token);
     }
 
     public function authoRization($request){
 
+    }
+
+    public function guard()
+    {
+        return Auth::guard();
+    }
+
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' =>auth('api')->factory()->getTTL() -58,
+        ]);
     }
 }
