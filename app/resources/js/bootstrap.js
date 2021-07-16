@@ -26,3 +26,18 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+const routes = [
+    { path: '/foo', component: Foo },
+    { path: '/bar', component: Bar }
+  ]
+const router = new VueRouter({
+    routes // short for `routes: routes`
+  })
+new Vue({
+    router,
+    render: h => h(Dashboard)
+  }).$mount('#app')

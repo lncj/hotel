@@ -24,7 +24,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Route::get('/users/token', 'App\Http\Controllers\Api\userApiController@index');
 // Route::post('/user/create', 'App\Http\Controllers\Api\userApiController@create');
 
-// Route::get('/hotel', 'App\Http\Controllers\Api\hotelApiController@index');
+Route::get('/hotel', 'App\Http\Controllers\Api\hotelApiController@index');
+Route::post('/hotel', 'App\Http\Controllers\Api\hotelApiController@create');
+Route::get('/hotel', 'App\Http\Controllers\Api\hotelApiController@index');
 
 Route::group([
 

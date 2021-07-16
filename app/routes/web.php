@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\myAccountController;
-
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +15,7 @@ use App\Http\Controllers\myAccountController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend/index');
 });
 Route::get('login', [myAccountController::class, 'index']);
+Route::get('dashboad', [AdminController::class, 'index']);
